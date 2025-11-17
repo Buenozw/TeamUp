@@ -2,7 +2,7 @@ package br.com.fiap.beans;
 
 public class Missao {
 
-    private int idMissao;
+    private int id_missao;
     private String titulo;
     private String descricao;
     private String tipo; // DIARIA ou SEMANAL
@@ -13,8 +13,8 @@ public class Missao {
 
     }
 
-    public Missao(int idMissao, String titulo, String descricao, String tipo, int xpRecompensa) {
-        this.idMissao = idMissao;
+    public Missao(int id_missao, String titulo, String descricao, String tipo, int xpRecompensa) {
+        this.id_missao = id_missao;
         this.titulo = titulo;
         this.descricao = descricao;
         this.tipo = tipo;
@@ -23,11 +23,11 @@ public class Missao {
 
     // Getters e Setters
     public int getIdMissao() {
-        return idMissao;
+        return id_missao;
     }
 
     public void setIdMissao(int idMissao) {
-        this.idMissao = idMissao;
+        this.id_missao = idMissao;
     }
 
     public String getTitulo() {

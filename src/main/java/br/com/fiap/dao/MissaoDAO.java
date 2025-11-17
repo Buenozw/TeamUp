@@ -49,16 +49,16 @@ public class MissaoDAO {
     }
 
     // Deletar
-    public String deletar(int idMissao) throws SQLException {
+    public String deletar(int id_missao) throws SQLException {
         PreparedStatement stmt =
                 minhaConexao.prepareStatement("DELETE FROM MISSOES WHERE ID_MISSAO = ?");
 
-        stmt.setInt(1, idMissao);
+        stmt.setInt(1, id_missao);
 
         stmt.execute();
         stmt.close();
 
-        return "Missão deletada com sucesso ❌!";
+        return "Missão deletada com sucesso ✅!";
     }
 
     // Selecionar

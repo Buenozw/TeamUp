@@ -16,17 +16,18 @@ public class UsuarioDAO {
     }
 
     // Inserir
-    public void inserir(Usuario usuario) throws SQLException {
+    public Object inserir(Usuario usuario) throws SQLException {
         String sql = "INSERT INTO USUARIO (NOME_USUARIO, EMAIL_USUARIO) VALUES (?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, usuario.getNome_usuario());
             stmt.setString(2, usuario.getEmail_usuario());
             stmt.executeUpdate();
         }
+        return null;
     }
 
     // Atualizar
-    public void atualizar(Usuario usuario) throws SQLException {
+    public Object atualizar(Usuario usuario) throws SQLException {
         String sql = "UPDATE USUARIO SET NOME_USUARIO = ?, EMAIL_USUARIO = ? WHERE ID_USUARIO = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, usuario.getNome_usuario());
@@ -34,15 +35,17 @@ public class UsuarioDAO {
             stmt.setInt(3, usuario.getId_usuario());
             stmt.executeUpdate();
         }
+        return null;
     }
 
     // Deletar
-    public void deletar(int idUsuario) throws SQLException {
+    public Object deletar(int idUsuario) throws SQLException {
         String sql = "DELETE FROM USUARIO WHERE ID_USUARIO = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, idUsuario);
             stmt.executeUpdate();
         }
+        return null;
     }
 
     // Buscar por ID
