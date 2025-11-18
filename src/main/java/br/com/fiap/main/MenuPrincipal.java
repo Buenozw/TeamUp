@@ -13,10 +13,16 @@ public class MenuPrincipal {
 
     static int inteiro(String msg) {
         while (true) {
+            String valor = JOptionPane.showInputDialog(msg);
+
+            if (valor == null) {
+                return 0;
+            }
+
             try {
-                return Integer.parseInt(JOptionPane.showInputDialog(msg));
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Digite um número válido!");
+                return Integer.parseInt(valor);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Digite apenas números!");
             }
         }
     }
