@@ -174,7 +174,7 @@ public class MenuPrincipal {
 
         switch (opcao) {
             case 1 -> listarUsuarios();
-            case 2 -> listarEquipes();
+            case 2 -> listarEquipe();
             case 3 -> listarFuncionarios();
             case 4 -> listarTarefas();
             case 5 -> listarConquistas();
@@ -200,7 +200,7 @@ public class MenuPrincipal {
         JOptionPane.showMessageDialog(null, sb.toString());
     }
 
-    private static void listarEquipes() throws SQLException, ClassNotFoundException {
+    private static void listarEquipe() throws SQLException, ClassNotFoundException {
         EquipeDAO dao = new EquipeDAO();
         List<Equipe> lista = dao.selecionar();
 
