@@ -114,8 +114,10 @@ public class MenuPrincipal {
         FuncionarioDAO dao = new FuncionarioDAO();
         Funcionario f = new Funcionario();
 
-        f.setCargo(texto("Cargo:"));
-        f.setPontos(inteiro("Pontos iniciais:"));
+        f.setNome_funcionario(texto("Nome:"));
+        f.setCargo_funcionario(texto("Cargo:"));
+        f.setPontos_funcionario(inteiro("Pontos iniciais:"));
+        f.setEmail_funcionario(texto("Email:"));
         f.setId_equipe(inteiro("ID da equipe:"));
 
         JOptionPane.showMessageDialog(null, dao.inserir(f));
@@ -125,9 +127,9 @@ public class MenuPrincipal {
         TarefaDAO dao = new TarefaDAO();
         Tarefa t = new Tarefa();
 
-        t.setDescricao(texto("Descrição:"));
-        t.setPontos(inteiro("Pontos:"));
-        t.setStatus(texto("Status:"));
+        t.setDescricao_tarefa(texto("Descrição:"));
+        t.setPontos_tarefa(inteiro("Pontos:"));
+        t.setStatus_tarefa(texto("Status:"));
         t.setId_funcionario(inteiro("ID do funcionário:"));
 
         JOptionPane.showMessageDialog(null, dao.inserir(t));
@@ -147,10 +149,10 @@ public class MenuPrincipal {
         MissaoDAO dao = new MissaoDAO();
         Missao m = new Missao();
 
-        m.setTitulo(texto("Título da missão:"));
-        m.setDescricao(texto("Descrição da missão:"));
-        m.setTipo(texto("Tipo da missão:"));
-        m.setXpRecompensa(inteiro("XP de recompensa:"));
+        m.setTitulo_missao(texto("Título da missão:"));
+        m.setDescricao_missao(texto("Descrição da missão:"));
+        m.setTipo_missao(texto("Tipo da missão:"));
+        m.setXpRecompensa_missao(inteiro("XP de recompensa:"));
 
         JOptionPane.showMessageDialog(null, dao.inserir(m));
     }
@@ -221,8 +223,10 @@ public class MenuPrincipal {
 
         for (Funcionario f : lista) {
             sb.append("ID: ").append(f.getId_usuario())
-                    .append(" | Cargo: ").append(f.getCargo())
-                    .append(" | Pontos: ").append(f.getPontos())
+                    .append(" | Nome: ").append(f.getNome_usuario())
+                    .append(" | Cargo: ").append(f.getCargo_funcionario())
+                    .append(" | Pontos: ").append(f.getPontos_funcionario())
+                    .append(" | Email: ").append(f.getEmail_funcionario())
                     .append(" | Equipe: ").append(f.getId_equipe())
                     .append("\n");
         }
@@ -238,9 +242,10 @@ public class MenuPrincipal {
 
         for (Tarefa t : lista) {
             sb.append("ID: ").append(t.getId_tarefa())
-                    .append(" | Desc: ").append(t.getDescricao())
-                    .append(" | Pontos: ").append(t.getPontos())
-                    .append(" | Status: ").append(t.getStatus())
+                    .append(" | Desc: ").append(t.getDescricao_tarefa())
+                    .append(" | Pontos: ").append(t.getPontos_tarefa())
+                    .append(" | Status: ").append(t.getStatus_tarefa())
+                    .append(" | Data_Fim").append(t.getData_fim_tarefa())
                     .append(" | Funcionário: ").append(t.getId_funcionario())
                     .append("\n");
         }
@@ -271,11 +276,11 @@ public class MenuPrincipal {
         StringBuilder sb = new StringBuilder("MISSÕES:\n\n");
 
         for (Missao m : lista) {
-            sb.append("ID: ").append(m.getIdMissao())
-                    .append(" | Título: ").append(m.getTitulo())
-                    .append(" | Descrição: ").append(m.getDescricao())
-                    .append(" | Tipo: ").append(m.getTipo())
-                    .append(" | XP: ").append(m.getXpRecompensa())
+            sb.append("ID: ").append(m.getId_missao())
+                    .append(" | Título: ").append(m.getTitulo_missao())
+                    .append(" | Descrição: ").append(m.getDescricao_missao())
+                    .append(" | Tipo: ").append(m.getTipo_missao())
+                    .append(" | XP: ").append(m.getXpRecompensa_missao())
                     .append("\n");
         }
 
@@ -335,8 +340,10 @@ public class MenuPrincipal {
         Funcionario f = new Funcionario();
 
         f.setId_usuario(inteiro("ID do funcionário:"));
-        f.setCargo(texto("Novo cargo:"));
-        f.setPontos(inteiro("Nova pontuação:"));
+        f.setNome_funcionario(texto("Novo nome:"));
+        f.setCargo_funcionario(texto("Novo cargo:"));
+        f.setPontos_funcionario(inteiro("Nova pontuação:"));
+        f.setEmail_funcionario(texto("Novo email:"));
         f.setId_equipe(inteiro("Novo ID da equipe:"));
 
         JOptionPane.showMessageDialog(null, dao.atualizar(f));
@@ -347,9 +354,10 @@ public class MenuPrincipal {
         Tarefa t = new Tarefa();
 
         t.setId_tarefa(inteiro("ID da tarefa:"));
-        t.setDescricao(texto("Nova descrição:"));
-        t.setPontos(inteiro("Novos pontos:"));
-        t.setStatus(texto("Novo status:"));
+        t.setDescricao_tarefa(texto("Nova descrição:"));
+        t.setPontos_tarefa(inteiro("Novos pontos:"));
+        t.setStatus_tarefa(texto("Novo status:"));
+        t.setData_fim_tarefa(texto("Nova data fim:"));
         t.setId_funcionario(inteiro("Novo ID do funcionário:"));
 
         JOptionPane.showMessageDialog(null, dao.atualizar(t));
@@ -370,11 +378,11 @@ public class MenuPrincipal {
         MissaoDAO dao = new MissaoDAO();
         Missao m = new Missao();
 
-        m.setIdMissao(inteiro("ID da missão:"));
-        m.setTitulo(texto("Novo título:"));
-        m.setDescricao(texto("Nova descrição:"));
-        m.setTipo(texto("Novo tipo:"));
-        m.setXpRecompensa(inteiro("Nova recompensa XP:"));
+        m.setId_missao(inteiro("ID da missão:"));
+        m.setTitulo_missao(texto("Novo título:"));
+        m.setDescricao_missao(texto("Nova descrição:"));
+        m.setTipo_missao(texto("Novo tipo:"));
+        m.setXpRecompensa_missao(inteiro("Nova recompensa XP:"));
 
         JOptionPane.showMessageDialog(null, dao.atualizar(m));
     }
