@@ -3,62 +3,61 @@ package br.com.fiap.beans;
 public class Missao {
 
     private int id_missao;
-    private String titulo;
-    private String descricao;
-    private String tipo; // DIARIA ou SEMANAL
-    private int xpRecompensa;
+    private String titulo_missao;
+    private String descricao_missao;
+    private String tipo_missao; // DIARIA ou SEMANAL
+    private int xpRecompensa_missao;
 
     // Metodo Contrutor
     public Missao() {
 
     }
 
-    public Missao(int id_missao, String titulo, String descricao, String tipo, int xpRecompensa) {
+    public Missao(int id_missao, String titulo_missao, String descricao_missao, String tipo_missao, int xpRecompensa_missao) {
         this.id_missao = id_missao;
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.tipo = tipo;
-        this.xpRecompensa = xpRecompensa;
+        this.titulo_missao = titulo_missao;
+        this.descricao_missao = descricao_missao;
+        this.tipo_missao = tipo_missao;
+        this.xpRecompensa_missao = xpRecompensa_missao;
     }
 
-    // Getters e Setters
-    public int getIdMissao() {
+    public int getId_missao() {
         return id_missao;
     }
 
-    public void setIdMissao(int idMissao) {
-        this.id_missao = idMissao;
+    public void setId_missao(int id_missao) {
+        this.id_missao = id_missao;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getTitulo_missao() {
+        return titulo_missao;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTitulo_missao(String titulo_missao) {
+        this.titulo_missao = titulo_missao;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescricao_missao() {
+        return descricao_missao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricao_missao(String descricao_missao) {
+        this.descricao_missao = descricao_missao;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getTipo_missao() {
+        return tipo_missao;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipo_missao(String tipo_missao) {
+        this.tipo_missao = tipo_missao;
     }
 
-    public int getXpRecompensa() {
-        return xpRecompensa;
+    public int getXpRecompensa_missao() {
+        return xpRecompensa_missao;
     }
 
-    public void setXpRecompensa(int xpRecompensa) {
-        this.xpRecompensa = xpRecompensa;
+    public void setXpRecompensa_missao(int xpRecompensa_missao) {
+        this.xpRecompensa_missao = xpRecompensa_missao;
     }
 }

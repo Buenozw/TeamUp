@@ -22,8 +22,9 @@ public class EquipeDAO {
     // Inserir
     public String inserir(Equipe equipe) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("INSERT INTO EQUIPE (NOME_EQUIPE) VALUES (?)");
+                minhaConexao.prepareStatement("INSERT INTO EQUIPE (NOME_EQUIPE, DESCRICAO_EQUIPE ) VALUES (?, ?)");
         stmt.setString(1, equipe.getNome_equipe());
+        stmt.setString(2, equipe.getDescricao_equipe());
 
         stmt.execute();
         stmt.close();
@@ -48,9 +49,10 @@ public class EquipeDAO {
     // Atualizar
     public String atualizar(Equipe equipe) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("UPDATE EQUIPE SET NOME_EQUIPE = ? WHERE ID_EQUIPE = ?");
+                minhaConexao.prepareStatement("UPDATE EQUIPE SET NOME_EQUIPE = ?, DESCRICAO_EQUIPE = ? WHERE ID_EQUIPE = ?");
         stmt.setString(1, equipe.getNome_equipe());
-        stmt.setInt(2, equipe.getId_equipe());
+        stmt.setString(2, equipe.getDescricao_equipe());
+        stmt.setInt(3, equipe.getId_equipe());
 
         stmt.executeUpdate();
         stmt.close();
@@ -72,6 +74,7 @@ public class EquipeDAO {
             Equipe objEquipe = new Equipe();
             objEquipe.setId_equipe(rs.getInt("ID_EQUIPE"));
             objEquipe.setNome_equipe(rs.getString("NOME_EQUIPE"));
+            objEquipe.setDescricao_equipe(rs.getString("DESCRICAO_EQUIPE"));
             listEquipe.add(objEquipe);
         }
         return listEquipe;

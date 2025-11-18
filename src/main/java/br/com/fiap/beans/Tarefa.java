@@ -3,25 +3,28 @@ package br.com.fiap.beans;
 public class Tarefa {
 
     private int id_tarefa;
-    private String descricao;
-    private int pontos;
-    private String status;
+    private String descricao_tarefa;
+    private int pontos_tarefa;
+    private String status_tarefa;
+    private String data_fim_tarefa;
     private int id_funcionario;
+    private int id_equipe;
 
     // Metodo Contrutor
     public Tarefa() {
 
     }
 
-    public Tarefa(int id, String descricao, int pontos, String status, int idFuncionario) {
-        this.id_tarefa = id;
-        this.descricao = descricao;
-        this.pontos = pontos;
-        this.status = status;
-        this.id_funcionario = idFuncionario;
+    public Tarefa(int id_tarefa, String descricao_tarefa, int pontos_tarefa, String status_tarefa, String data_fim_tarefa, int id_funcionario, int id_equipe) {
+        this.id_tarefa = id_tarefa;
+        this.descricao_tarefa = descricao_tarefa;
+        this.pontos_tarefa = pontos_tarefa;
+        this.status_tarefa = status_tarefa;
+        this.data_fim_tarefa = data_fim_tarefa;
+        this.id_funcionario = id_funcionario;
+        this.id_equipe = id_equipe;
     }
 
-    // Getters e Setters
     public int getId_tarefa() {
         return id_tarefa;
     }
@@ -30,28 +33,36 @@ public class Tarefa {
         this.id_tarefa = id_tarefa;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescricao_tarefa() {
+        return descricao_tarefa;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricao_tarefa(String descricao_tarefa) {
+        this.descricao_tarefa = descricao_tarefa;
     }
 
-    public int getPontos() {
-        return pontos;
+    public int getPontos_tarefa() {
+        return pontos_tarefa;
     }
 
-    public void setPontos(int pontos) {
-        this.pontos = pontos;
+    public void setPontos_tarefa(int pontos_tarefa) {
+        this.pontos_tarefa = pontos_tarefa;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatus_tarefa() {
+        return status_tarefa;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus_tarefa(String status_tarefa) {
+        this.status_tarefa = status_tarefa;
+    }
+
+    public String getData_fim_tarefa() {
+        return data_fim_tarefa;
+    }
+
+    public void setData_fim_tarefa(String data_fim_tarefa) {
+        this.data_fim_tarefa = data_fim_tarefa;
     }
 
     public int getId_funcionario() {
@@ -60,5 +71,13 @@ public class Tarefa {
 
     public void setId_funcionario(int id_funcionario) {
         this.id_funcionario = id_funcionario;
+    }
+
+    public int getId_equipe() {
+        return id_equipe;
+    }
+
+    public void setId_equipe(int id_equipe) {
+        this.id_equipe = id_equipe;
     }
 }

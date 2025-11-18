@@ -22,10 +22,12 @@ public class FuncionarioDAO {
     // Inserir
     public String inserir(Funcionario funcionario) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("INSERT INTO FUNCIONARIO (CARGO, PONTOS, ID_EQUIPE) VALUES (?, ?, ?)");
-        stmt.setString(1, funcionario.getCargo());
-        stmt.setInt(2, funcionario.getPontos());
-        stmt.setInt(3, funcionario.getId_equipe());
+                minhaConexao.prepareStatement("INSERT INTO FUNCIONARIO (NOME_FUNCIONARIO, CARGO_FUNCIONARIO, PONTOS_FUNCIONARIO, EMAIL_FUNCIONARIO, ID_EQUIPE) VALUES (?, ?, ?, ?, ?)");
+        stmt.setString(1, funcionario.getNome_funcionario());
+        stmt.setString(2, funcionario.getCargo_funcionario());
+        stmt.setInt(3, funcionario.getPontos_funcionario());
+        stmt.setString(4, funcionario.getEmail_funcionario());
+        stmt.setInt(5, funcionario.getId_equipe());
 
         stmt.execute();
         stmt.close();
@@ -50,11 +52,13 @@ public class FuncionarioDAO {
     // Atualizar
     public String atualizar(Funcionario funcionario) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("UPDATE FUNCIONARIO SET CARGO = ?, PONTOS = ?, ID_EQUIPE = ? WHERE ID_FUNCIONARIO = ?");
-        stmt.setString(1, funcionario.getCargo());
-        stmt.setInt(2, funcionario.getPontos());
-        stmt.setInt(3, funcionario.getId_equipe());
-        stmt.setInt(4, funcionario.getId_usuario()); // herdado de Usuario
+                minhaConexao.prepareStatement("UPDATE FUNCIONARIO SET NOME_FUNCIONARIO = ?, CARGO_FUNCIONARIO = ?, PONTOS_FUNCIONARIOS = ?, EMAIL_FUNCIONARIO = ?, ID_EQUIPE = ? WHERE ID_FUNCIONARIO = ?");
+        stmt.setString(1, funcionario.getNome_funcionario());
+        stmt.setString(2, funcionario.getCargo_funcionario());
+        stmt.setInt(3, funcionario.getPontos_funcionario());
+        stmt.setString(4, funcionario.getEmail_funcionario());
+        stmt.setInt(5, funcionario.getId_equipe());
+        stmt.setInt(6, funcionario.getId_usuario()); // herdado de Usuario
 
         stmt.executeUpdate();
         stmt.close();
@@ -75,8 +79,10 @@ public class FuncionarioDAO {
         while(rs.next()){
             Funcionario objFuncionario = new Funcionario();
             objFuncionario.setId_usuario(rs.getInt("ID_FUNCIONARIO"));
-            objFuncionario.setCargo(rs.getString("CARGO"));
-            objFuncionario.setPontos(rs.getInt("PONTOS"));
+            objFuncionario.setNome_funcionario(rs.getString("NOME_FUNCIONARIO"));
+            objFuncionario.setCargo_funcionario(rs.getString("CARGO_FUNCIONARIO"));
+            objFuncionario.setPontos_funcionario(rs.getInt("PONTOS_FUNCIONARIO"));
+            objFuncionario.setEmail_funcionario(rs.getString("EMAIL_FUNCIONARIO"));
             objFuncionario.setId_equipe(rs.getInt("ID_EQUIPE"));
             listFuncionario.add(objFuncionario);
         }

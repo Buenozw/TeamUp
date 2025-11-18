@@ -17,10 +17,12 @@ public class UsuarioDAO {
 
     // Inserir
     public Object inserir(Usuario usuario) throws SQLException {
-        String sql = "INSERT INTO USUARIO (NOME_USUARIO, EMAIL_USUARIO) VALUES (?, ?)";
+        String sql = "INSERT INTO USUARIO (NOME_USUARIO, EMAIL_USUARIO, SENHA_USUARIO, NIVEL_USUARIO) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, usuario.getNome_usuario());
             stmt.setString(2, usuario.getEmail_usuario());
+            stmt.setString(3, usuario.getSenha_usuario());
+            stmt.setInt(4, usuario.getNivel_usuario());
             stmt.executeUpdate();
         }
         return null;
@@ -28,11 +30,13 @@ public class UsuarioDAO {
 
     // Atualizar
     public Object atualizar(Usuario usuario) throws SQLException {
-        String sql = "UPDATE USUARIO SET NOME_USUARIO = ?, EMAIL_USUARIO = ? WHERE ID_USUARIO = ?";
+        String sql = "UPDATE USUARIO SET NOME_USUARIO = ?, EMAIL_USUARIO = ?, SENHA_USUARIO = ?, NIVEL_USUARIO = ?, WHERE ID_USUARIO = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, usuario.getNome_usuario());
             stmt.setString(2, usuario.getEmail_usuario());
-            stmt.setInt(3, usuario.getId_usuario());
+            stmt.setString(3, usuario.getSenha_usuario());
+            stmt.setInt(4, usuario.getNivel_usuario());
+            stmt.setInt(5, usuario.getId_usuario());
             stmt.executeUpdate();
         }
         return null;
@@ -59,6 +63,8 @@ public class UsuarioDAO {
                     usuario.setId_usuario(rs.getInt("ID_USUARIO"));
                     usuario.setNome_usuario(rs.getString("NOME_USUARIO"));
                     usuario.setEmail_usuario(rs.getString("EMAIL_USUARIO"));
+                    usuario.setSenha_usuario(rs.getString("SENHA_USUARIO"));
+                    usuario.setNivel_usuario(rs.getInt("NIVEL_USUARIO"));
                     return usuario;
                 }
             }

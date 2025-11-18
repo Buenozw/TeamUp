@@ -18,12 +18,12 @@ public class MissaoDAO {
     // Inserir
     public String inserir(Missao missao) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("INSERT INTO MISSOES (TITULO, DESCRICAO, TIPO, XP_RECOMPENSA) VALUES (?, ?, ?, ?)");
+                minhaConexao.prepareStatement("INSERT INTO MISSOES (TITULO_MISSAO, DESCRICAO_MISSAO, TIPO_MISSAO, XP_RECOMPENSA_MISSAO) VALUES (?, ?, ?, ?)");
 
-        stmt.setString(1, missao.getTitulo());
-        stmt.setString(2, missao.getDescricao());
-        stmt.setString(3, missao.getTipo());
-        stmt.setInt(4, missao.getXpRecompensa());
+        stmt.setString(1, missao.getTitulo_missao());
+        stmt.setString(2, missao.getDescricao_missao());
+        stmt.setString(3, missao.getTipo_missao());
+        stmt.setInt(4, missao.getXpRecompensa_missao());
 
         stmt.execute();
         stmt.close();
@@ -34,13 +34,12 @@ public class MissaoDAO {
     // Atualizar
     public String atualizar(Missao missao) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("UPDATE MISSOES SET TITULO = ?, DESCRICAO = ?, TIPO = ?, XP_RECOMPENSA = ? WHERE ID_MISSAO = ?");
+                minhaConexao.prepareStatement("UPDATE MISSOES SET TITULO_MISSAO = ?, DESCRICAO_MISSAO = ?, TIPO_MISSAO = ?, XP_RECOMPENSA_MISSAO = ? WHERE ID_MISSAO = ?");
 
-        stmt.setString(1, missao.getTitulo());
-        stmt.setString(2, missao.getDescricao());
-        stmt.setString(3, missao.getTipo());
-        stmt.setInt(4, missao.getXpRecompensa());
-        stmt.setInt(5, missao.getIdMissao());
+        stmt.setString(1, missao.getTitulo_missao());
+        stmt.setString(2, missao.getDescricao_missao());
+        stmt.setString(3, missao.getTipo_missao());
+        stmt.setInt(4, missao.getXpRecompensa_missao());
 
         stmt.executeUpdate();
         stmt.close();
@@ -72,11 +71,11 @@ public class MissaoDAO {
 
         while (rs.next()) {
             Missao missao = new Missao();
-            missao.setIdMissao(rs.getInt("ID_MISSAO"));
-            missao.setTitulo(rs.getString("TITULO"));
-            missao.setDescricao(rs.getString("DESCRICAO"));
-            missao.setTipo(rs.getString("TIPO"));
-            missao.setXpRecompensa(rs.getInt("XP_RECOMPENSA"));
+            missao.setId_missao(rs.getInt("ID_MISSAO: "));
+            missao.setTitulo_missao(rs.getString("TITULO: "));
+            missao.setDescricao_missao(rs.getString("DESCRICAO: "));
+            missao.setTipo_missao(rs.getString("TIPO: "));
+            missao.setXpRecompensa_missao(rs.getInt("XP_RECOMPENSA: "));
             listMissoes.add(missao);
         }
 

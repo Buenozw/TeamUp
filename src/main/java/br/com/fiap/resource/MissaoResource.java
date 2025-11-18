@@ -26,7 +26,7 @@ public class MissaoResource {
     public Response inserirRs(Missao missao, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
         missaoBO.inserirBo(missao);
         UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-        builder.path(Integer.toString(missao.getIdMissao()));
+        builder.path(Integer.toString(missao.getId_missao()));
         return Response.created(builder.build()).build();
     }
 
