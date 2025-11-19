@@ -76,36 +76,26 @@ public class MenuPrincipal {
 
         int opcao = inteiro(
                 " >>>> MENU INSERIR <<<< \n" +
-                        "1 - Usuário\n" +
-                        "2 - Equipe\n" +
-                        "3 - Funcionário\n" +
-                        "4 - Tarefa\n" +
-                        "5 - Conquista\n" +
-                        "6 - Missão\n" +
+                        "1 - Equipe\n" +
+                        "2 - Funcionário\n" +
+                        "3 - Tarefa\n" +
+                        "4 - Conquista\n" +
+                        "5 - Missão\n" +
                         "0 - Voltar"
         );
 
         switch (opcao) {
-            case 1 -> inserirUsuario();
-            case 2 -> inserirEquipe();
-            case 3 -> inserirFuncionario();
-            case 4 -> inserirTarefa();
-            case 5 -> inserirConquista();
-            case 6 -> inserirMissao();
+            case 1 -> inserirEquipe();
+            case 2 -> inserirFuncionario();
+            case 3 -> inserirTarefa();
+            case 4 -> inserirConquista();
+            case 5 -> inserirMissao();
         }
     }
 
     // ------------- INSERIR -------------
 
-    private static void inserirUsuario() throws SQLException, ClassNotFoundException {
-        UsuarioDAO dao = new UsuarioDAO();
-        Usuario u = new Usuario() {};
 
-        u.setNome_usuario(texto("Nome do usuário:"));
-        u.setEmail_usuario(texto("Email do usuário:"));
-
-        JOptionPane.showMessageDialog(null, dao.inserir(u));
-    }
 
     private static void inserirEquipe() throws SQLException, ClassNotFoundException {
         EquipeDAO dao = new EquipeDAO();
@@ -122,9 +112,9 @@ public class MenuPrincipal {
 
         f.setNome_funcionario(texto("Nome:"));
         f.setCargo_funcionario(texto("Cargo:"));
-        f.setPontos_funcionario(inteiro("Pontos iniciais:"));
+
         f.setEmail_funcionario(texto("Email:"));
-        f.setId_equipe(inteiro("ID da equipe:"));
+
 
         JOptionPane.showMessageDialog(null, dao.inserir(f));
     }
@@ -169,42 +159,26 @@ public class MenuPrincipal {
 
         int opcao = inteiro(
                 " >>>> MENU LISTAR <<<< \n" +
-                        "1 - Usuários\n" +
-                        "2 - Equipes\n" +
-                        "3 - Funcionários\n" +
-                        "4 - Tarefas\n" +
-                        "5 - Conquistas\n" +
-                        "6 - Missões\n" +
+                        "1 - Equipe\n" +
+                        "2 - Funcionário\n" +
+                        "3 - Tarefa\n" +
+                        "4 - Conquista\n" +
+                        "5 - Missão\n" +
                         "0 - Voltar"
         );
 
         switch (opcao) {
-            case 1 -> listarUsuarios();
-            case 2 -> listarEquipe();
-            case 3 -> listarFuncionarios();
-            case 4 -> listarTarefas();
-            case 5 -> listarConquistas();
-            case 6 -> listarMissoes();
+            case 1 -> listarEquipe();
+            case 2 -> listarFuncionarios();
+            case 3 -> listarTarefas();
+            case 4 -> listarConquistas();
+            case 5 -> listarMissoes();
         }
     }
 
     // ------------- LISTAR -------------
 
-    private static void listarUsuarios() throws SQLException, ClassNotFoundException {
-        UsuarioDAO dao = new UsuarioDAO();
-        List<Usuario> lista = dao.listarTodos();
 
-        StringBuilder sb = new StringBuilder("USUÁRIOS:\n\n");
-
-        for (Usuario u : lista) {
-            sb.append("ID: ").append(u.getId_usuario())
-                    .append(" | Nome: ").append(u.getNome_usuario())
-                    .append(" | Email: ").append(u.getEmail_usuario())
-                    .append("\n");
-        }
-
-        JOptionPane.showMessageDialog(null, sb.toString());
-    }
 
     private static void listarEquipe() throws SQLException, ClassNotFoundException {
         EquipeDAO dao = new EquipeDAO();
@@ -228,12 +202,10 @@ public class MenuPrincipal {
         StringBuilder sb = new StringBuilder("FUNCIONÁRIOS:\n\n");
 
         for (Funcionario f : lista) {
-            sb.append("ID: ").append(f.getId_usuario())
-                    .append(" | Nome: ").append(f.getNome_usuario())
+
+                    sb.append(" | Nome: ").append(f.getNome_funcionario())
                     .append(" | Cargo: ").append(f.getCargo_funcionario())
-                    .append(" | Pontos: ").append(f.getPontos_funcionario())
                     .append(" | Email: ").append(f.getEmail_funcionario())
-                    .append(" | Equipe: ").append(f.getId_equipe())
                     .append("\n");
         }
 
@@ -299,37 +271,25 @@ public class MenuPrincipal {
 
         int opcao = inteiro(
                 " >>>> MENU ATUALIZAR <<<< \n" +
-                        "1 - Usuário\n" +
-                        "2 - Equipe\n" +
-                        "3 - Funcionário\n" +
-                        "4 - Tarefa\n" +
-                        "5 - Conquista\n" +
-                        "6 - Missão\n" +
+                        "1 - Equipe\n" +
+                        "2 - Funcionário\n" +
+                        "3 - Tarefa\n" +
+                        "4 - Conquista\n" +
+                        "5 - Missão\n" +
                         "0 - Voltar"
         );
 
         switch (opcao) {
-            case 1 -> atualizarUsuario();
-            case 2 -> atualizarEquipe();
-            case 3 -> atualizarFuncionario();
-            case 4 -> atualizarTarefa();
-            case 5 -> atualizarConquista();
-            case 6 -> atualizarMissao();
+
+            case 1 -> atualizarEquipe();
+            case 2 -> atualizarFuncionario();
+            case 3 -> atualizarTarefa();
+            case 4 -> atualizarConquista();
+            case 5 -> atualizarMissao();
         }
     }
 
     // ------------- ATUALIZAR -------------
-
-    private static void atualizarUsuario() throws SQLException, ClassNotFoundException {
-        UsuarioDAO dao = new UsuarioDAO();
-        Usuario u = new Usuario() {};
-
-        u.setId_usuario(inteiro("ID do usuário:"));
-        u.setNome_usuario(texto("Novo nome:"));
-        u.setEmail_usuario(texto("Novo email:"));
-
-        JOptionPane.showMessageDialog(null, dao.atualizar(u));
-    }
 
     private static void atualizarEquipe() throws SQLException, ClassNotFoundException {
         EquipeDAO dao = new EquipeDAO();
@@ -345,12 +305,12 @@ public class MenuPrincipal {
         FuncionarioDAO dao = new FuncionarioDAO();
         Funcionario f = new Funcionario();
 
-        f.setId_usuario(inteiro("ID do funcionário:"));
+
         f.setNome_funcionario(texto("Novo nome:"));
         f.setCargo_funcionario(texto("Novo cargo:"));
-        f.setPontos_funcionario(inteiro("Nova pontuação:"));
+
         f.setEmail_funcionario(texto("Novo email:"));
-        f.setId_equipe(inteiro("Novo ID da equipe:"));
+
 
         JOptionPane.showMessageDialog(null, dao.atualizar(f));
     }
@@ -399,32 +359,25 @@ public class MenuPrincipal {
 
         int opcao = inteiro(
                 " >>>> MENU DELETAR <<<< \n" +
-                        "1 - Usuário\n" +
-                        "2 - Equipe\n" +
-                        "3 - Funcionário\n" +
-                        "4 - Tarefa\n" +
-                        "5 - Conquista\n" +
-                        "6 - Missão\n" +
+                        "1 - Equipe\n" +
+                        "2 - Funcionário\n" +
+                        "3 - Tarefa\n" +
+                        "4 - Conquista\n" +
+                        "5 - Missão\n" +
                         "0 - Voltar"
         );
 
         switch (opcao) {
-            case 1 -> deletarUsuario();
-            case 2 -> deletarEquipe();
-            case 3 -> deletarFuncionario();
-            case 4 -> deletarTarefa();
-            case 5 -> deletarConquista();
-            case 6 -> deletarMissao();
+            case 1 -> deletarEquipe();
+            case 2 -> deletarFuncionario();
+            case 3 -> deletarTarefa();
+            case 4 -> deletarConquista();
+            case 5 -> deletarMissao();
         }
     }
 
     // ------------- DELETAR -------------
 
-    private static void deletarUsuario() throws SQLException, ClassNotFoundException {
-        UsuarioDAO dao = new UsuarioDAO();
-        int id = inteiro("ID do usuário:");
-        JOptionPane.showMessageDialog(null, dao.deletar(id));
-    }
 
     private static void deletarEquipe() throws SQLException, ClassNotFoundException {
         EquipeDAO dao = new EquipeDAO();

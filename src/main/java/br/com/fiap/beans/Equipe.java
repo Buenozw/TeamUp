@@ -17,12 +17,12 @@ public class Equipe extends Funcionario {
         this.pontuacao_equipe = pontuacao_equipe;
     }
 
-    @Override
+
     public int getId_equipe() {
         return id_equipe;
     }
 
-    @Override
+
     public void setId_equipe(int id_equipe) {
         this.id_equipe = id_equipe;
     }

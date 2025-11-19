@@ -3,89 +3,89 @@ package br.com.fiap.dao;
 import br.com.fiap.beans.Funcionario;
 import br.com.fiap.conexao.ConexaoFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FuncionarioDAO {
 
-    public Connection minhaConexao;
+    private final Connection minhaConexao;
 
     public FuncionarioDAO() throws SQLException, ClassNotFoundException {
         this.minhaConexao = new ConexaoFactory().conexao();
     }
 
-
     // Inserir
     public String inserir(Funcionario funcionario) throws SQLException {
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("INSERT INTO FUNCIONARIO (NOME_FUNCIONARIO, CARGO_FUNCIONARIO, PONTOS_FUNCIONARIO, EMAIL_FUNCIONARIO, ID_EQUIPE) VALUES (?, ?, ?, ?, ?)");
-        stmt.setString(1, funcionario.getNome_funcionario());
-        stmt.setString(2, funcionario.getCargo_funcionario());
-        stmt.setInt(3, funcionario.getPontos_funcionario());
-        stmt.setString(4, funcionario.getEmail_funcionario());
-        stmt.setInt(5, funcionario.getId_equipe());
+        String sql = "INSERT INTO FUNCIONARIO (NOME_FUNCIONARIO, CARGO_FUNCIONARIO, EMAIL_FUNCIONARIO) " +
+                "VALUES (?, ?, ?)";
 
-        stmt.execute();
-        stmt.close();
+        try (PreparedStatement stmt = minhaConexao.prepareStatement(sql)) {
+            stmt.setString(1, funcionario.getNome_funcionario());
+            stmt.setString(2, funcionario.getCargo_funcionario());
+            stmt.setString(3, funcionario.getEmail_funcionario());
 
-        return "Funcionário cadastrado com sucesso ✅";
+
+            stmt.executeUpdate();
+            return "Funcionário cadastrado com sucesso.";
+        }
     }
-
 
     // Delete
     public String deletar(int idFuncionario) throws SQLException {
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("DELETE FROM FUNCIONARIO WHERE ID_FUNCIONARIO = ?");
-        stmt.setInt(1, idFuncionario);
+        String sql = "DELETE FROM FUNCIONARIO WHERE ID_FUNCIONARIO = ?";
 
-        stmt.execute();
-        stmt.close();
+        try (PreparedStatement stmt = minhaConexao.prepareStatement(sql)) {
+            stmt.setInt(1, idFuncionario);
 
-        return "Funcionário deletado com sucesso ✅!";
+            int rows = stmt.executeUpdate();
+            if (rows == 0) {
+                return "Nenhum registro encontrado para exclusão.";
+            }
+            return "Funcionário deletado com sucesso.";
+        }
     }
-
 
     // Atualizar
     public String atualizar(Funcionario funcionario) throws SQLException {
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("UPDATE FUNCIONARIO SET NOME_FUNCIONARIO = ?, CARGO_FUNCIONARIO = ?, PONTOS_FUNCIONARIOS = ?, EMAIL_FUNCIONARIO = ?, ID_EQUIPE = ? WHERE ID_FUNCIONARIO = ?");
-        stmt.setString(1, funcionario.getNome_funcionario());
-        stmt.setString(2, funcionario.getCargo_funcionario());
-        stmt.setInt(3, funcionario.getPontos_funcionario());
-        stmt.setString(4, funcionario.getEmail_funcionario());
-        stmt.setInt(5, funcionario.getId_equipe());
-        stmt.setInt(6, funcionario.getId_usuario()); // herdado de Usuario
+        String sql = "UPDATE FUNCIONARIO SET NOME_FUNCIONARIO = ?, CARGO_FUNCIONARIO = ?, " +
+                "EMAIL_FUNCIONARIO = ? WHERE ID_FUNCIONARIO = ?";
 
-        stmt.executeUpdate();
-        stmt.close();
+        try (PreparedStatement stmt = minhaConexao.prepareStatement(sql)) {
+            stmt.setString(1, funcionario.getNome_funcionario());
+            stmt.setString(2, funcionario.getCargo_funcionario());
+            stmt.setString(4, funcionario.getEmail_funcionario());
 
-        return "Funcionário atualizado com sucesso ✅!";
+
+            int rows = stmt.executeUpdate();
+            if (rows == 0) {
+                return "Nenhum registro encontrado para atualização.";
+            }
+            return "Funcionário atualizado com sucesso.";
+        }
     }
-
 
     // Selecionar
     public List<Funcionario> selecionar() throws SQLException {
-        ArrayList<Funcionario> listFuncionario = new ArrayList<Funcionario>();
+        List<Funcionario> lista = new ArrayList<>();
 
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("SELECT * FROM FUNCIONARIO");
+        String sql = "SELECT * FROM FUNCIONARIO";
 
-        ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = minhaConexao.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-        while(rs.next()){
-            Funcionario objFuncionario = new Funcionario();
-            objFuncionario.setId_usuario(rs.getInt("ID_FUNCIONARIO"));
-            objFuncionario.setNome_funcionario(rs.getString("NOME_FUNCIONARIO"));
-            objFuncionario.setCargo_funcionario(rs.getString("CARGO_FUNCIONARIO"));
-            objFuncionario.setPontos_funcionario(rs.getInt("PONTOS_FUNCIONARIO"));
-            objFuncionario.setEmail_funcionario(rs.getString("EMAIL_FUNCIONARIO"));
-            objFuncionario.setId_equipe(rs.getInt("ID_EQUIPE"));
-            listFuncionario.add(objFuncionario);
+            while (rs.next()) {
+                Funcionario f = new Funcionario();
+
+                f.setNome_funcionario(rs.getString("NOME_FUNCIONARIO"));
+                f.setCargo_funcionario(rs.getString("CARGO_FUNCIONARIO"));
+                f.setEmail_funcionario(rs.getString("EMAIL_FUNCIONARIO"));
+
+
+                lista.add(f);
+            }
         }
-        return listFuncionario;
+
+        return lista;
     }
 }

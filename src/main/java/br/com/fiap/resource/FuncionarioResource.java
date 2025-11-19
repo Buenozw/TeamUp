@@ -23,12 +23,17 @@ public class FuncionarioResource {
     // Inserir
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response inserirRs(Funcionario funcionario, @Context UriInfo uriInfo) throws ClassNotFoundException, SQLException {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response inserirRs(Funcionario funcionario, @Context UriInfo uriInfo)
+            throws ClassNotFoundException, SQLException {
+
         funcionarioBO.inserirBo(funcionario);
-        UriBuilder builder = uriInfo.getAbsolutePathBuilder();
-        builder.path(Integer.toString(funcionario.getId_usuario())); // herdado de Usuario
-        return Response.created(builder.build()).build();
+
+        return Response.status(Response.Status.CREATED)
+                .entity("{\"message\":\"Funcionário criado com sucesso\"}")
+                .build();
     }
+
 
     // Atualizar
     @PUT
