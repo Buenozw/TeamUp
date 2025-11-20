@@ -102,6 +102,7 @@ public class MenuPrincipal {
         Equipe e = new Equipe();
 
         e.setNome_equipe(texto("Nome da equipe:"));
+        e.setDescricao_equipe(texto("Descrição da equipe"));
 
         JOptionPane.showMessageDialog(null, dao.inserir(e));
     }
@@ -189,6 +190,7 @@ public class MenuPrincipal {
         for (Equipe e : lista) {
             sb.append("ID: ").append(e.getId_equipe())
                     .append(" | Nome: ").append(e.getNome_equipe())
+                    .append(" | Descrição: ").append(e.getDescricao_equipe())
                     .append("\n");
         }
 
@@ -202,8 +204,8 @@ public class MenuPrincipal {
         StringBuilder sb = new StringBuilder("FUNCIONÁRIOS:\n\n");
 
         for (Funcionario f : lista) {
-
-                    sb.append(" | Nome: ").append(f.getNome_funcionario())
+            sb.append(" | ID: ").append(f.getId_funcionario())
+                    .append(" | Nome: ").append(f.getNome_funcionario())
                     .append(" | Cargo: ").append(f.getCargo_funcionario())
                     .append(" | Email: ").append(f.getEmail_funcionario())
                     .append("\n");

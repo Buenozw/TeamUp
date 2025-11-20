@@ -5,17 +5,18 @@ public class Funcionario  {
     private String nome_funcionario;
     private String cargo_funcionario;
     private String email_funcionario;
+    private int id_funcionario;
 
 
     // Metodo Contrutor
     public Funcionario() {
     }
 
-    public Funcionario(String nome_funcionario, String cargo_funcionario,  String email_funcionario) {
+    public Funcionario(String nome_funcionario, String cargo_funcionario,  String email_funcionario, int id_funcionario) {
         this.nome_funcionario = nome_funcionario;
         this.cargo_funcionario = cargo_funcionario;
-
         this.email_funcionario = email_funcionario;
+        this.id_funcionario = id_funcionario;
 
     }
 
@@ -37,6 +38,13 @@ public class Funcionario  {
         this.cargo_funcionario = cargo_funcionario;
     }
 
+    public int getId_funcionario() {
+        return id_funcionario;
+    }
+
+    public void setId_funcionario(int id_funcionario) {
+        this.id_funcionario = id_funcionario;
+    }
 
     public String getEmail_funcionario() {
         return email_funcionario;

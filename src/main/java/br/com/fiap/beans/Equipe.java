@@ -5,16 +5,15 @@ public class Equipe extends Funcionario {
     private int id_equipe;
     private String nome_equipe;
     private String descricao_equipe;
-    private int pontuacao_equipe;
 
     public Equipe() {
     }
 
-    public Equipe(int id_equipe, String nome_equipe, String descricao_equipe, int pontuacao_equipe) {
+    public Equipe(int id_equipe, String nome_equipe, String descricao_equipe) {
         this.id_equipe = id_equipe;
         this.nome_equipe = nome_equipe;
         this.descricao_equipe = descricao_equipe;
-        this.pontuacao_equipe = pontuacao_equipe;
+
     }
 
 
@@ -43,11 +42,4 @@ public class Equipe extends Funcionario {
         this.descricao_equipe = descricao_equipe;
     }
 
-    public int getPontuacao_equipe() {
-        return pontuacao_equipe;
-    }
-
-    public void setPontuacao_equipe(int pontuacao_equipe) {
-        this.pontuacao_equipe = pontuacao_equipe;
-    }
 }
