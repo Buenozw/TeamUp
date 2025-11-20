@@ -126,8 +126,8 @@ public class MenuPrincipal {
 
         t.setDescricao_tarefa(texto("Descrição:"));
         t.setPontos_tarefa(inteiro("Pontos:"));
-        t.setStatus_tarefa(texto("Status:"));
-        t.setId_funcionario(inteiro("ID do funcionário:"));
+        t.setData_fim_tarefa(texto("DD/MM/AAAA: "));
+
 
         JOptionPane.showMessageDialog(null, dao.inserir(t));
     }
@@ -224,9 +224,7 @@ public class MenuPrincipal {
             sb.append("ID: ").append(t.getId_tarefa())
                     .append(" | Desc: ").append(t.getDescricao_tarefa())
                     .append(" | Pontos: ").append(t.getPontos_tarefa())
-                    .append(" | Status: ").append(t.getStatus_tarefa())
-                    .append(" | Data_Fim").append(t.getData_fim_tarefa())
-                    .append(" | Funcionário: ").append(t.getId_funcionario())
+                    .append(" | Data_Fim: ").append(t.getData_fim_tarefa())
                     .append("\n");
         }
 
@@ -324,9 +322,8 @@ public class MenuPrincipal {
         t.setId_tarefa(inteiro("ID da tarefa:"));
         t.setDescricao_tarefa(texto("Nova descrição:"));
         t.setPontos_tarefa(inteiro("Novos pontos:"));
-        t.setStatus_tarefa(texto("Novo status:"));
         t.setData_fim_tarefa(texto("Nova data fim:"));
-        t.setId_funcionario(inteiro("Novo ID do funcionário:"));
+
 
         JOptionPane.showMessageDialog(null, dao.atualizar(t));
     }

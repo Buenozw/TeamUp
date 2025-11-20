@@ -21,12 +21,10 @@ public class TarefaDAO {
     // Inserir
     public String inserir(Tarefa tarefa) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("INSERT INTO TAREFA (DESCRICAO_TAREFA, PONTOS_TAREFA, STATUS_TAREFA, DATA_FIM_TAREFA ID_FUNCIONARIO) VALUES (?, ?, ?, ?, ?)");
+                minhaConexao.prepareStatement("INSERT INTO TAREFA (DESCRICAO_TAREFA, PONTOS_TAREFA, DATA_FIM_TAREFA ) VALUES (?, ?, ?)");
         stmt.setString(1, tarefa.getDescricao_tarefa());
         stmt.setInt(2, tarefa.getPontos_tarefa());
-        stmt.setString(3, tarefa.getStatus_tarefa());
-        stmt.setString(4, tarefa.getData_fim_tarefa());
-        stmt.setInt(5, tarefa.getId_funcionario());
+        stmt.setString(3, tarefa.getData_fim_tarefa());
 
         stmt.execute();
         stmt.close();
@@ -49,13 +47,11 @@ public class TarefaDAO {
     // Atualizar
     public String atualizar(Tarefa tarefa) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("UPDATE TAREFA SET DESCRICAO_TAREFA = ?, PONTOS_TAREFA = ?, STATUS_TAREFA = ?, DATA_FIM_TAREFA = ?, ID_FUNCIONARIO = ? WHERE ID_TAREFA = ?");
+                minhaConexao.prepareStatement("UPDATE TAREFA SET DESCRICAO_TAREFA = ?, PONTOS_TAREFA = ?, DATA_FIM_TAREFA = ? WHERE ID_TAREFA = ?");
         stmt.setString(1, tarefa.getDescricao_tarefa());
         stmt.setInt(2, tarefa.getPontos_tarefa());
-        stmt.setString(3, tarefa.getStatus_tarefa());
-        stmt.setString(4, tarefa.getData_fim_tarefa());
-        stmt.setInt(5, tarefa.getId_funcionario());
-        stmt.setInt(6, tarefa.getId_tarefa());
+        stmt.setString(3, tarefa.getData_fim_tarefa());
+        stmt.setInt(4, tarefa.getId_tarefa());
 
         stmt.executeUpdate();
         stmt.close();
@@ -75,11 +71,9 @@ public class TarefaDAO {
         while(rs.next()){
             Tarefa objTarefa = new Tarefa();
             objTarefa.setId_tarefa(rs.getInt("ID_TAREFA"));
-            objTarefa.setDescricao_tarefa(rs.getString("DESCRICAO"));
-            objTarefa.setPontos_tarefa(rs.getInt("PONTOS"));
-            objTarefa.setStatus_tarefa(rs.getString("STATUS"));
+            objTarefa.setDescricao_tarefa(rs.getString("DESCRICAO_TAREFA"));
+            objTarefa.setPontos_tarefa(rs.getInt("PONTOS_TAREFA"));
             objTarefa.setData_fim_tarefa(rs.getString("DATA_FIM_TAREFA"));
-            objTarefa.setId_funcionario(rs.getInt("ID_FUNCIONARIO"));
             listTarefa.add(objTarefa);
         }
         return listTarefa;
