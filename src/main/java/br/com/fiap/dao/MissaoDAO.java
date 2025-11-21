@@ -1,5 +1,6 @@
 package br.com.fiap.dao;
 
+import br.com.fiap.beans.Funcionario;
 import br.com.fiap.beans.Missao;
 import br.com.fiap.conexao.ConexaoFactory;
 
@@ -18,7 +19,7 @@ public class MissaoDAO {
     // Inserir
     public String inserir(Missao missao) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("INSERT INTO MISSOES (TITULO_MISSAO, DESCRICAO_MISSAO, TIPO_MISSAO, XP_RECOMPENSA_MISSAO) VALUES (?, ?, ?, ?)");
+                minhaConexao.prepareStatement("INSERT INTO MISSAO (TITULO_MISSAO, DESCRICAO_MISSAO, TIPO_MISSAO, XP_RECOMPENSA_MISSAO) VALUES (?, ?, ?, ?)");
 
         stmt.setString(1, missao.getTitulo_missao());
         stmt.setString(2, missao.getDescricao_missao());
@@ -34,7 +35,7 @@ public class MissaoDAO {
     // Atualizar
     public String atualizar(Missao missao) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("UPDATE MISSOES SET TITULO_MISSAO = ?, DESCRICAO_MISSAO = ?, TIPO_MISSAO = ?, XP_RECOMPENSA_MISSAO = ? WHERE ID_MISSAO = ?");
+                minhaConexao.prepareStatement("UPDATE MISSAO SET TITULO_MISSAO = ?, DESCRICAO_MISSAO = ?, TIPO_MISSAO = ?, XP_RECOMPENSA_MISSAO = ? WHERE ID_MISSAO = ?");
 
         stmt.setString(1, missao.getTitulo_missao());
         stmt.setString(2, missao.getDescricao_missao());
@@ -50,7 +51,7 @@ public class MissaoDAO {
     // Deletar
     public String deletar(int id_missao) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("DELETE FROM MISSOES WHERE ID_MISSAO = ?");
+                minhaConexao.prepareStatement("DELETE FROM MISSAO WHERE ID_MISSAO = ?");
 
         stmt.setInt(1, id_missao);
 
@@ -62,23 +63,26 @@ public class MissaoDAO {
 
     // Selecionar
     public List<Missao> selecionar() throws SQLException {
-        ArrayList<Missao> listMissoes = new ArrayList<>();
+        List<Missao> lista = new ArrayList<>();
 
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("SELECT * FROM MISSOES");
+        String sql = "SELECT * FROM MISSAO";
 
-        ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = minhaConexao.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-        while (rs.next()) {
-            Missao missao = new Missao();
-            missao.setId_missao(rs.getInt("ID_MISSAO: "));
-            missao.setTitulo_missao(rs.getString("TITULO: "));
-            missao.setDescricao_missao(rs.getString("DESCRICAO: "));
-            missao.setTipo_missao(rs.getString("TIPO: "));
-            missao.setXpRecompensa_missao(rs.getInt("XP_RECOMPENSA: "));
-            listMissoes.add(missao);
+            while (rs.next()) {
+                Missao f = new Missao();
+
+                f.setId_missao(rs.getInt("ID_MISSAO"));
+                f.setTitulo_missao(rs.getString("TITULO_MISSAO"));
+                f.setDescricao_missao(rs.getString("DESCRICAO_MISSAO"));
+                f.setTipo_missao(rs.getString("TIPO_MISSAO"));
+                f.setXpRecompensa_missao(rs.getInt("XP_RECOMPENSA_MISSAO"));
+
+                lista.add(f);
+            }
         }
 
-        return listMissoes;
+        return lista;
     }
 }
