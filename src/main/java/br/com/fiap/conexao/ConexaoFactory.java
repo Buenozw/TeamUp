@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConexaoFactory {
 
-    public Connection conexao() throws ClassNotFoundException, SQLException {
+    public static Connection conexao() throws ClassNotFoundException, SQLException {
 
         Class.forName("oracle.jdbc.driver.OracleDriver");
 

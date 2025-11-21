@@ -16,6 +16,19 @@ public class EquipeBO {
         return (ArrayList<Equipe>) equipeDAO.selecionar();
     }
 
+    // Entrar na equipe
+    public void entrarEquipeBo(int idEquipe) throws ClassNotFoundException, SQLException {
+        EquipeDAO equipeDAO = new EquipeDAO();
+        equipeDAO.entrarEquipe(idEquipe);
+    }
+
+    // Sair equipe
+    public void sairEquipeBo(int idEquipe) throws ClassNotFoundException, SQLException {
+        EquipeDAO equipeDAO = new EquipeDAO();
+        equipeDAO.sairEquipe(idEquipe);
+    }
+
+
 
     // Inserir
     public void inserirBo(Equipe equipe) throws ClassNotFoundException, SQLException {
@@ -36,4 +49,5 @@ public class EquipeBO {
         EquipeDAO equipeDAO = new EquipeDAO();
         equipeDAO.deletar(idEquipe);
     }
+
 }

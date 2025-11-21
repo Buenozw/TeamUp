@@ -30,6 +30,23 @@ public class EquipeResource {
         return Response.created(builder.build()).build();
     }
 
+    @PUT
+    @Path("/entrar/{idEquipe}")
+    public Response entrarEquipe(@PathParam("idEquipe") int idEquipe) throws SQLException, ClassNotFoundException {
+        equipeBO.entrarEquipeBo(idEquipe);
+        return Response.ok().build();
+    }
+
+
+    // SAIR DA EQUIPE
+    @POST
+    @Path("/sair/{idEquipe}")
+    public Response sairEquipe(@PathParam("idEquipe") int idEquipe) throws ClassNotFoundException, SQLException {
+        equipeBO.sairEquipeBo(idEquipe);
+        return Response.ok().build();
+    }
+
+
     // Atualizar
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)

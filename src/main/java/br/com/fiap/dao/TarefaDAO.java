@@ -3,79 +3,83 @@ package br.com.fiap.dao;
 import br.com.fiap.beans.Tarefa;
 import br.com.fiap.conexao.ConexaoFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TarefaDAO {
 
-    public Connection minhaConexao;
-
-    public TarefaDAO() throws SQLException, ClassNotFoundException {
-        this.minhaConexao = new ConexaoFactory().conexao();
-    }
-
     // Inserir
-    public String inserir(Tarefa tarefa) throws SQLException {
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("INSERT INTO TAREFA (DESCRICAO_TAREFA, PONTOS_TAREFA, DATA_FIM_TAREFA ) VALUES (?, ?, ?)");
-        stmt.setString(1, tarefa.getDescricao_tarefa());
-        stmt.setInt(2, tarefa.getPontos_tarefa());
-        stmt.setString(3, tarefa.getData_fim_tarefa());
+    public String inserir(Tarefa tarefa) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO TAREFA (DESCRICAO_TAREFA, PONTOS_TAREFA, DATA_FIM_TAREFA) VALUES (?, ?, ?)";
 
-        stmt.execute();
-        stmt.close();
+        try (Connection conn = new ConexaoFactory().conexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        return "Tarefa cadastrada com sucesso ✅";
+            stmt.setString(1, tarefa.getDescricao_tarefa());
+            stmt.setInt(2, tarefa.getPontos_tarefa());
+            stmt.setDate(3, Date.valueOf(tarefa.getData_fim_tarefa()));
+
+            stmt.executeUpdate();
+            return "Tarefa cadastrada com sucesso";
+        }
+        // Recursos fechados automaticamente pelo try-with-resources
     }
 
-    // Delete
-    public String deletar(int idTarefa) throws SQLException {
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("DELETE FROM TAREFA WHERE ID_TAREFA = ?");
-        stmt.setInt(1, idTarefa);
+    // Deletar
+    public String deletar(int idTarefa) throws SQLException, ClassNotFoundException {
+        String sql = "DELETE FROM TAREFA WHERE ID_TAREFA = ?";
 
-        stmt.execute();
-        stmt.close();
+        try (Connection conn = new ConexaoFactory().conexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        return "Tarefa deletada com sucesso ✅!";
+            stmt.setInt(1, idTarefa);
+            stmt.executeUpdate();
+
+            return "Tarefa deletada com sucesso";
+        }
+        // Conexão e statement liberados corretamente
     }
 
     // Atualizar
-    public String atualizar(Tarefa tarefa) throws SQLException {
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("UPDATE TAREFA SET DESCRICAO_TAREFA = ?, PONTOS_TAREFA = ?, DATA_FIM_TAREFA = ? WHERE ID_TAREFA = ?");
-        stmt.setString(1, tarefa.getDescricao_tarefa());
-        stmt.setInt(2, tarefa.getPontos_tarefa());
-        stmt.setString(3, tarefa.getData_fim_tarefa());
-        stmt.setInt(4, tarefa.getId_tarefa());
+    public String atualizar(Tarefa tarefa) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE TAREFA SET DESCRICAO_TAREFA = ?, PONTOS_TAREFA = ?, DATA_FIM_TAREFA = ? WHERE ID_TAREFA = ?";
 
-        stmt.executeUpdate();
-        stmt.close();
+        try (Connection conn = new ConexaoFactory().conexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        return "Tarefa atualizada com sucesso ✅!";
+            stmt.setString(1, tarefa.getDescricao_tarefa());
+            stmt.setInt(2, tarefa.getPontos_tarefa());
+            stmt.setDate(3, Date.valueOf(tarefa.getData_fim_tarefa()));
+            stmt.setInt(4, tarefa.getId_tarefa());
+
+            stmt.executeUpdate();
+            return "Tarefa atualizada com sucesso";
+        }
+        // Sessões encerradas de forma determinística
     }
 
-    // Selecionar
-    public List<Tarefa> selecionar() throws SQLException {
-        ArrayList<Tarefa> listTarefa = new ArrayList<Tarefa>();
+    // Selecionar todos
+    public List<Tarefa> selecionar() throws SQLException, ClassNotFoundException {
+        List<Tarefa> lista = new ArrayList<>();
 
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("SELECT * FROM TAREFA");
+        String sql = "SELECT * FROM TAREFA";
 
-        ResultSet rs = stmt.executeQuery();
+        try (Connection conn = new ConexaoFactory().conexao();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-        while(rs.next()){
-            Tarefa objTarefa = new Tarefa();
-            objTarefa.setId_tarefa(rs.getInt("ID_TAREFA"));
-            objTarefa.setDescricao_tarefa(rs.getString("DESCRICAO_TAREFA"));
-            objTarefa.setPontos_tarefa(rs.getInt("PONTOS_TAREFA"));
-            objTarefa.setData_fim_tarefa(rs.getString("DATA_FIM_TAREFA"));
-            listTarefa.add(objTarefa);
+            while (rs.next()) {
+                Tarefa t = new Tarefa();
+                t.setId_tarefa(rs.getInt("ID_TAREFA"));
+                t.setDescricao_tarefa(rs.getString("DESCRICAO_TAREFA"));
+                t.setPontos_tarefa(rs.getInt("PONTOS_TAREFA"));
+                t.setData_fim_tarefa(rs.getDate("DATA_FIM_TAREFA").toString());
+                lista.add(t);
+            }
         }
-        return listTarefa;
+        // Todos os recursos (conexão, statement e resultset) são automaticamente fechados
+
+        return lista;
     }
 }

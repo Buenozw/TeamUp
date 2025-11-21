@@ -3,80 +3,101 @@ package br.com.fiap.dao;
 import br.com.fiap.beans.Equipe;
 import br.com.fiap.conexao.ConexaoFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EquipeDAO {
 
-    public Connection minhaConexao;
-
-    public EquipeDAO() throws SQLException, ClassNotFoundException {
-        this.minhaConexao = new ConexaoFactory().conexao();
+    public EquipeDAO() {
+        // Construtor padrão
     }
-
 
     // Inserir
-    public String inserir(Equipe equipe) throws SQLException {
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("INSERT INTO EQUIPE (NOME_EQUIPE, DESCRICAO_EQUIPE ) VALUES (?, ?)");
-        stmt.setString(1, equipe.getNome_equipe());
-        stmt.setString(2, equipe.getDescricao_equipe());
+    public String inserir(Equipe equipe) throws SQLException, ClassNotFoundException {
+        String sql = "INSERT INTO EQUIPE (NOME_EQUIPE, DESCRICAO_EQUIPE) VALUES (?, ?)";
 
-        stmt.execute();
-        stmt.close();
+        try (Connection conn = new ConexaoFactory().conexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        return "Equipe cadastrada com sucesso ✅";
+            stmt.setString(1, equipe.getNome_equipe());
+            stmt.setString(2, equipe.getDescricao_equipe());
+
+            stmt.executeUpdate();
+            return "Equipe cadastrada com sucesso";
+        }
+    }
+
+    public void entrarEquipe(int idEquipe) throws ClassNotFoundException, SQLException {
+        Connection conn = ConexaoFactory.conexao();
+        String sql = "UPDATE equipe SET entrou = 1 WHERE id_equipe = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, idEquipe);
+        ps.executeUpdate();
+        ps.close();
     }
 
 
-    // Delete
-    public String deletar(int idEquipe) throws SQLException {
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("DELETE FROM EQUIPE WHERE ID_EQUIPE = ?");
+    // Sair equipe
+    public void sairEquipe(int idEquipe) throws SQLException, ClassNotFoundException {
+        Connection conn = ConexaoFactory.conexao();
+        PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE equipe SET entrou = 0 WHERE id_equipe = ?"
+        );
         stmt.setInt(1, idEquipe);
-
-        stmt.execute();
-        stmt.close();
-
-        return "Equipe deletada com sucesso ✅!";
+        stmt.executeUpdate();
     }
 
+
+    // Deletar
+    public String deletar(int idEquipe) throws SQLException, ClassNotFoundException {
+        String sql = "DELETE FROM EQUIPE WHERE ID_EQUIPE = ?";
+
+        try (Connection conn = new ConexaoFactory().conexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idEquipe);
+            stmt.executeUpdate();
+
+            return "Equipe deletada com sucesso";
+        }
+    }
 
     // Atualizar
-    public String atualizar(Equipe equipe) throws SQLException {
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("UPDATE EQUIPE SET NOME_EQUIPE = ?, DESCRICAO_EQUIPE = ? WHERE ID_EQUIPE = ?");
-        stmt.setString(1, equipe.getNome_equipe());
-        stmt.setString(2, equipe.getDescricao_equipe());
-        stmt.setInt(3, equipe.getId_equipe());
+    public String atualizar(Equipe equipe) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE EQUIPE SET NOME_EQUIPE = ?, DESCRICAO_EQUIPE = ? WHERE ID_EQUIPE = ?";
 
-        stmt.executeUpdate();
-        stmt.close();
+        try (Connection conn = new ConexaoFactory().conexao();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        return "Equipe atualizada com sucesso ✅!";
+            stmt.setString(1, equipe.getNome_equipe());
+            stmt.setString(2, equipe.getDescricao_equipe());
+            stmt.setInt(3, equipe.getId_equipe());
+
+            stmt.executeUpdate();
+            return "Equipe atualizada com sucesso";
+        }
     }
 
-
     // Selecionar
-    public List<Equipe> selecionar() throws SQLException {
-        ArrayList<Equipe> listEquipe = new ArrayList<Equipe>();
+    public List<Equipe> selecionar() throws SQLException, ClassNotFoundException {
+        List<Equipe> lista = new ArrayList<>();
 
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("SELECT * FROM EQUIPE");
+        String sql = "SELECT * FROM EQUIPE";
 
-        ResultSet rs = stmt.executeQuery();
+        try (Connection conn = new ConexaoFactory().conexao();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-        while(rs.next()){
-            Equipe objEquipe = new Equipe();
-            objEquipe.setId_equipe(rs.getInt("ID_EQUIPE"));
-            objEquipe.setNome_equipe(rs.getString("NOME_EQUIPE"));
-            objEquipe.setDescricao_equipe(rs.getString("DESCRICAO_EQUIPE"));
-            listEquipe.add(objEquipe);
+            while (rs.next()) {
+                Equipe e = new Equipe();
+                e.setId_equipe(rs.getInt("ID_EQUIPE"));
+                e.setNome_equipe(rs.getString("NOME_EQUIPE"));
+                e.setDescricao_equipe(rs.getString("DESCRICAO_EQUIPE"));
+                lista.add(e);
+            }
         }
-        return listEquipe;
+
+        return lista;
     }
 }
