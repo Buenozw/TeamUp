@@ -178,7 +178,6 @@ public class MenuPrincipal {
     // ------------- LISTAR -------------
 
 
-
     private static void listarEquipe() throws SQLException, ClassNotFoundException {
         EquipeDAO dao = new EquipeDAO();
         List<Equipe> lista = dao.selecionar();

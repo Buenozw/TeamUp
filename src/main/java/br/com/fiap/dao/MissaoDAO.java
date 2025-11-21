@@ -1,5 +1,6 @@
 package br.com.fiap.dao;
 
+import br.com.fiap.beans.Funcionario;
 import br.com.fiap.beans.Missao;
 import br.com.fiap.conexao.ConexaoFactory;
 
@@ -62,23 +63,26 @@ public class MissaoDAO {
 
     // Selecionar
     public List<Missao> selecionar() throws SQLException {
-        ArrayList<Missao> listMissoes = new ArrayList<>();
+        List<Missao> lista = new ArrayList<>();
 
-        PreparedStatement stmt =
-                minhaConexao.prepareStatement("SELECT * FROM MISSAO");
+        String sql = "SELECT * FROM MISSAO";
 
-        ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = minhaConexao.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-        while (rs.next()) {
-            Missao missao = new Missao();
-            missao.setId_missao(rs.getInt("ID_MISSAO: "));
-            missao.setTitulo_missao(rs.getString("TITULO: "));
-            missao.setDescricao_missao(rs.getString("DESCRICAO: "));
-            missao.setTipo_missao(rs.getString("TIPO: "));
-            missao.setXpRecompensa_missao(rs.getInt("XP_RECOMPENSA: "));
-            listMissoes.add(missao);
+            while (rs.next()) {
+                Missao f = new Missao();
+
+                f.setId_missao(rs.getInt("ID_MISSAO"));
+                f.setTitulo_missao(rs.getString("TITULO_MISSAO"));
+                f.setDescricao_missao(rs.getString("DESCRICAO_MISSAO"));
+                f.setTipo_missao(rs.getString("TIPO_MISSAO"));
+                f.setXpRecompensa_missao(rs.getInt("XP_RECOMPENSA_MISSAO"));
+
+                lista.add(f);
+            }
         }
 
-        return listMissoes;
+        return lista;
     }
 }
