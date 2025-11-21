@@ -51,7 +51,7 @@ public class MenuPrincipal {
 
         do {
             opcao = inteiro(
-                    " >>>>  MENU PRINCIPAL <<<< \n" +
+                    " ==========  MENU PRINCIPAL ======= \n" +
                             "1 - Inserir\n" +
                             "2 - Listar\n" +
                             "3 - Atualizar\n" +
@@ -94,8 +94,6 @@ public class MenuPrincipal {
     }
 
     // ------------- INSERIR -------------
-
-
 
     private static void inserirEquipe() throws SQLException, ClassNotFoundException {
         EquipeDAO dao = new EquipeDAO();
@@ -173,7 +171,7 @@ public class MenuPrincipal {
             case 2 -> listarFuncionarios();
             case 3 -> listarTarefas();
             case 4 -> listarConquistas();
-            case 5 -> listarMissoes();
+            case 5 -> listarMissao();
         }
     }
 
@@ -247,7 +245,7 @@ public class MenuPrincipal {
         JOptionPane.showMessageDialog(null, sb.toString());
     }
 
-    private static void listarMissoes() throws SQLException, ClassNotFoundException {
+    private static void listarMissao() throws SQLException, ClassNotFoundException {
         MissaoDAO dao = new MissaoDAO();
         List<Missao> lista = dao.selecionar();
 

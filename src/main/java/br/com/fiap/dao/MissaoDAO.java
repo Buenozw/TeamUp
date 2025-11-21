@@ -18,7 +18,7 @@ public class MissaoDAO {
     // Inserir
     public String inserir(Missao missao) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("INSERT INTO MISSOES (TITULO_MISSAO, DESCRICAO_MISSAO, TIPO_MISSAO, XP_RECOMPENSA_MISSAO) VALUES (?, ?, ?, ?)");
+                minhaConexao.prepareStatement("INSERT INTO MISSAO (TITULO_MISSAO, DESCRICAO_MISSAO, TIPO_MISSAO, XP_RECOMPENSA_MISSAO) VALUES (?, ?, ?, ?)");
 
         stmt.setString(1, missao.getTitulo_missao());
         stmt.setString(2, missao.getDescricao_missao());
@@ -34,7 +34,7 @@ public class MissaoDAO {
     // Atualizar
     public String atualizar(Missao missao) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("UPDATE MISSOES SET TITULO_MISSAO = ?, DESCRICAO_MISSAO = ?, TIPO_MISSAO = ?, XP_RECOMPENSA_MISSAO = ? WHERE ID_MISSAO = ?");
+                minhaConexao.prepareStatement("UPDATE MISSAO SET TITULO_MISSAO = ?, DESCRICAO_MISSAO = ?, TIPO_MISSAO = ?, XP_RECOMPENSA_MISSAO = ? WHERE ID_MISSAO = ?");
 
         stmt.setString(1, missao.getTitulo_missao());
         stmt.setString(2, missao.getDescricao_missao());
@@ -50,7 +50,7 @@ public class MissaoDAO {
     // Deletar
     public String deletar(int id_missao) throws SQLException {
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("DELETE FROM MISSOES WHERE ID_MISSAO = ?");
+                minhaConexao.prepareStatement("DELETE FROM MISSAO WHERE ID_MISSAO = ?");
 
         stmt.setInt(1, id_missao);
 
@@ -65,7 +65,7 @@ public class MissaoDAO {
         ArrayList<Missao> listMissoes = new ArrayList<>();
 
         PreparedStatement stmt =
-                minhaConexao.prepareStatement("SELECT * FROM MISSOES");
+                minhaConexao.prepareStatement("SELECT * FROM MISSAO");
 
         ResultSet rs = stmt.executeQuery();
 
