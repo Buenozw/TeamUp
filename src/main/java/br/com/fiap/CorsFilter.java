@@ -14,15 +14,7 @@ public class CorsFilter implements ContainerResponseFilter {
 	public void filter(ContainerRequestContext requestContext,
 					   ContainerResponseContext responseContext) throws IOException {
 
-		String origin = requestContext.getHeaderString("Origin");
-
-		if (origin != null && (
-				origin.equals("http://localhost:5173") ||
-						origin.equals("https://gs-front-mocha.vercel.app")
-		)) {
-			responseContext.getHeaders().add("Access-Control-Allow-Origin", origin);
-		}
-
+		responseContext.getHeaders().add("Access-Control-Allow-Origin", "http://localhost:5173");
 		responseContext.getHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
 		responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 		responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
